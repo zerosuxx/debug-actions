@@ -1,0 +1,29 @@
+name: Debug
+on:
+  workflow_dispatch:
+
+jobs:
+  linux-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+
+  osx-debug:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+
+  windows-debug:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+
