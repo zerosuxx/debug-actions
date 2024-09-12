@@ -18,6 +18,9 @@ jobs:
     runs-on: ${{ inputs.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v27
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: mxschmitt/action-tmate@v3
         with:
           limit-access-to-actor: true
