@@ -21,6 +21,11 @@ jobs:
       - uses: cachix/install-nix-action@v27
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          nix-channel --add https://nixos.org/channels/nixos-24.05
+          nix-channel --update
       - uses: mxschmitt/action-tmate@v3
+        env:
+          NIXPKGS_ALLOW_UNFREE: 1
         with:
           limit-access-to-actor: true
