@@ -17,14 +17,23 @@ jobs:
   debug:
     runs-on: ${{ inputs.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v27
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix (non-Windows only)
+        if: runner.os != 'Windows'
+        uses: cachix/install-nix-action@v27
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
+
+      - name: Configure Nix channel (non-Windows only)
+        if: runner.os != 'Windows'
+        run: |
           nix-channel --add https://nixos.org/channels/nixos-24.05
           nix-channel --update
-      - uses: mxschmitt/action-tmate@v3
+
+      - name: Start tmate session
+        uses: mxschmitt/action-tmate@v3
         env:
           NIXPKGS_ALLOW_UNFREE: 1
         with:
