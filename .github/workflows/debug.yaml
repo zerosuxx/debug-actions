@@ -20,17 +20,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Install Nix (non-Windows only)
-        if: runner.os != 'Windows'
-        uses: cachix/install-nix-action@v27
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Install Nix (non-Windows only)
+      #   if: runner.os != 'Windows'
+      #   uses: cachix/install-nix-action@v27
+      #   with:
+      #     github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configure Nix channel (non-Windows only)
-        if: runner.os != 'Windows'
-        run: |
-          nix-channel --add https://nixos.org/channels/nixos-24.05
-          nix-channel --update
+      # - name: Configure Nix channel (non-Windows only)
+      #   if: runner.os != 'Windows'
+      #   run: |
+      #     nix-channel --add https://nixos.org/channels/nixos-24.05
+      #     nix-channel --update
 
       - name: Start tmate session
         uses: mxschmitt/action-tmate@v3
