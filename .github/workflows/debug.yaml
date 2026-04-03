@@ -11,6 +11,7 @@ on:
         options:
           - ubuntu-latest
           - macos-latest
+          - macos-26-intel
           - windows-latest
 
 jobs:
