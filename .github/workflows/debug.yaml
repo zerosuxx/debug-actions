@@ -34,8 +34,18 @@ jobs:
       #     nix-channel --update
 
       - name: Start tmate session
+        id: tmate
         uses: mxschmitt/action-tmate@v3
         env:
           NIXPKGS_ALLOW_UNFREE: 1
         with:
+          detached: true
           limit-access-to-actor: true
+
+      - name: Publish SSH connection
+        shell: bash
+        env:
+          SSH_COMMAND: ${{ steps.tmate.outputs.ssh-command }}
+        run: |
+          test -n "$SSH_COMMAND"
+          printf '::notice title=Tmate SSH::%s\n' "$SSH_COMMAND"
