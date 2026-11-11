@@ -33,19 +33,21 @@ jobs:
       #     nix-channel --add https://nixos.org/channels/nixos-24.05
       #     nix-channel --update
 
-      - name: Start tmate session
-        id: tmate
-        uses: mxschmitt/action-tmate@v3
+      - name: Start Upterm session
+        id: upterm
+        uses: owenthereal/action-upterm@v2.8.1
         env:
           NIXPKGS_ALLOW_UNFREE: 1
         with:
           detached: true
           limit-access-to-actor: true
+          allow-exec: true
+          upterm-version: v0.41.1
 
       - name: Publish SSH connection
         shell: bash
         env:
-          SSH_COMMAND: ${{ steps.tmate.outputs.ssh-command }}
+          SSH_COMMAND: ${{ steps.upterm.outputs.ssh-command }}
         run: |
           test -n "$SSH_COMMAND"
-          printf '::notice title=Tmate SSH::%s\n' "$SSH_COMMAND"
+          printf '::notice title=Upterm SSH::%s\n' "$SSH_COMMAND"
